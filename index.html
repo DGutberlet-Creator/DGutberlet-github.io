@@ -1,85 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Panini World Cup 2026 Tracker</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Panini 2026">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f5f7fb;color:#111827}header{background:#fff;border-bottom:1px solid #e5e7eb;padding:14px;position:sticky;top:0;z-index:10}h1{font-size:20px;margin:0 0 10px}.wrap{max-width:1000px;margin:auto;padding:14px}.row{display:flex;gap:8px;flex-wrap:wrap}input,select,button,textarea{font:inherit;font-size:16px;border-radius:12px;border:1px solid #d1d5db;padding:12px;background:#fff}button{min-height:48px;border:0;background:#2563eb;color:#fff;font-weight:700;-webkit-appearance:none;appearance:none;touch-action:manipulation}.secondary{background:#e0e7ff;color:#1d4ed8}.danger{background:#fee2e2;color:#991b1b}.search{width:100%;margin-bottom:8px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.stat{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:12px}.stat b{display:block;font-size:22px}.team{background:#fff;border:1px solid #e5e7eb;border-radius:16px;margin:12px 0;overflow:hidden}.teamHead{padding:12px;border-bottom:1px solid #e5e7eb}.teamTitle{font-weight:800}.muted{color:#6b7280;font-size:13px}.bar{height:8px;background:#e5e7eb;border-radius:99px;margin-top:6px;overflow:hidden}.fill{height:100%;background:#16a34a}.editTeam{display:grid;grid-template-columns:1fr 90px 90px;gap:8px;margin-top:10px}.stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;padding:12px}.sticker{border:1px solid #e5e7eb;border-radius:14px;padding:10px;background:#fafafa}.sticker.have{background:#f0fdf4;border-color:#86efac}.sticker.need{background:#fff1f2;border-color:#fecaca}.sticker.dup{background:#fffbeb;border-color:#fde68a}.num{font-weight:900}.nameInput{width:100%;margin:6px 0;padding:9px;border-radius:10px}.statusGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}.statusGrid button{min-height:46px;padding:8px;font-size:14px;background:#e5e7eb;color:#111827}.statusGrid .active.need{background:#dc2626;color:#fff}.statusGrid .active.have{background:#16a34a;color:#fff}.statusGrid .active.dup{background:#f59e0b;color:#111}.panel{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:12px;margin:12px 0}.hidden{display:none}textarea{width:100%;min-height:130px}.notice{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:10px;margin-top:8px;font-size:14px}@media(max-width:720px){header{position:static}.stats{grid-template-columns:repeat(2,1fr)}.editTeam{grid-template-columns:1fr}.stickers{grid-template-columns:1fr 1fr}}@media(max-width:420px){.stickers{grid-template-columns:1fr}.row button,.row select{flex:1 1 100%}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panini World Cup 2026 Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a61e8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    h1 {
+      background-color: #0a61e8;
+      color: white;
+      padding: 1rem;
+      margin: 0;
+      text-align: center;
+    }
+    .team-section {
+      margin: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      overflow: hidden;
+    }
+    .team-summary {
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .team-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .team-table th, .team-table td {
+      padding: 0.3rem 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    .team-table th {
+      background-color: #fafafa;
+      text-align: left;
+    }
+    .status-select {
+      width: 100%;
+      padding: 0.2rem;
+    }
+    details[open] summary::after {
+      content: '\2013'; /* dash */
+    }
+    details summary::after {
+      content: '\2b'; /* plus sign */
+      float: right;
+    }
+  </style>
 </head>
 <body>
-<header>
-<h1>🏆 Panini World Cup 2026 Tracker</h1>
-<input id="search" class="search" placeholder="Search team, player or sticker number, e.g. ENG18">
-<div class="row">
-<select id="filter"><option value="all">All stickers</option><option value="need">Need only</option><option value="have">Collected only</option><option value="dup">Duplicates only</option></select>
-<button id="addTeam" class="secondary">Add section</button>
-<button id="importBtn" class="secondary">Import CSV</button>
-<button id="exportBtn" class="secondary">Export CSV</button>
-<button id="resetBtn" class="danger">Reset</button>
-</div>
-<div class="notice">Install tip: after this is hosted online, open the link in Safari, tap Share, then Add to Home Screen. The app saves progress on your device.</div>
-</header>
-<div class="wrap">
-<div id="stats" class="stats"></div>
-<div id="importPanel" class="panel hidden"><b>Import CSV</b><p class="muted">Format: code,team,page,number,name,status</p><textarea id="csvInput"></textarea><div class="row"><button id="loadCsv">Load CSV</button><button id="closeImport" class="secondary">Close</button></div></div>
-<div id="teams"></div>
-</div>
-<script>
-(function(){
-var starter=[
-{code:'FWC',name:'FIFA World Cup 2026 specials',page:'1',stickers:['Official Emblem 1','Official Emblem 2','Official Mascots','Official Slogan','Official Ball','Canada','Mexico','USA','Italy 1934','Uruguay 1950','West Germany 1954','Brazil 1962','West Germany 1974','Argentina 1986','Brazil 1994','Brazil 2002','Italy 2006','Germany 2014','Argentina 2022','Special 20']},
-{code:'MEX',name:'Mexico',page:'',stickers:['Emblem','Luis Malagón','Johan Vasquez','Jorge Sánchez','Cesar Montes','Jesus Gallardo','Israel Reyes','Diego Lainez','Carlos Rodriguez','Edson Alvarez','Orbelin Pineda','Marcel Ruiz','Team Photo','Érick Sánchez','Hirving Lozano','Santiago Giménez','Raúl Jiménez','Alexis Vega','Roberto Alvarado','Cesar Huerta']},
-{code:'USA',name:'USA',page:'',stickers:['Emblem','Matt Freese','Chris Richards','Tim Ream','Mark McKenzie','Alex Freeman','Antonee Robinson','Tyler Adams','Tanner Tessmann','Weston McKennie','Christian Roldan','Timothy Weah','Team Photo','Diego Luna','Malik Tillman','Christian Pulisic','Brenden Aaronson','Ricardo Pepi','Haji Wright','Folarin Balogun']},
-{code:'ARG',name:'Argentina',page:'',stickers:['Emblem','Emiliano Martinez','Nahuel Molina','Cristian Romero','Nicolas Otamendi','Nicolas Tagliafico','Leonardo Balerdi','Enzo Fernandez','Alexis Mac Allister','Rodrigo De Paul','Exequiel Palacios','Leandro Paredes','Team Photo','Nico Paz','Franco Mastantuono','Nico Gonzalez','Lionel Messi','Lautaro Martinez','Julian Alvarez','Giuliano Simeone']},
-{code:'ESP',name:'Spain',page:'',stickers:['Emblem','Unai Simon','Robin Le Normand','Aymeric Laporte','Dean Huijsen','Pedro Porro','Dani Carvajal','Marc Cucurella','Martín Zubimendi','Rodri','Pedri','Fabian Ruiz','Team Photo','Mikel Merino','Lamine Yamal','Dani Olmo','Nico Williams','Ferran Torres','Álvaro Morata','Mikel Oyarzabal']},
-{code:'ENG',name:'England',page:'',stickers:['Emblem','Jordan Pickford','John Stones','Marc Guéhi','Ezri Konsa','Trent Alexander-Arnold','Reece James','Dan Burn','Jordan Henderson','Declan Rice','Jude Bellingham','Cole Palmer','Team Photo','Morgan Rogers','Anthony Gordon','Phil Foden','Bukayo Saka','Harry Kane','Marcus Rashford','Ollie Watkins']}
-];
-var key='panini2026tracker_v3';
-var data=load();
-function byId(id){return document.getElementById(id)}
-function escapeHtml(v){return String(v||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function makeData(list){var out=[];for(var i=0;i<list.length;i++){var t=list[i], st=[];for(var j=0;j<t.stickers.length;j++){st.push({number:j+1,name:t.stickers[j],status:'need'})}out.push({code:t.code,name:t.name,page:t.page||'',stickers:st})}return out}
-function load(){try{var s=localStorage.getItem(key)||localStorage.getItem('panini2026tracker_v2')||localStorage.getItem('panini2026tracker');if(s){return JSON.parse(s)}}catch(e){}return makeData(starter)}
-function save(){try{localStorage.setItem(key,JSON.stringify(data))}catch(e){alert('Could not save on this device/browser. Try opening in Safari.')}}
-function num(t,s){return t.code + s.number}
-function render(){
- var q=(byId('search').value||'').toLowerCase();var f=byId('filter').value;var total=0,have=0,need=0,dup=0;
- for(var i=0;i<data.length;i++){for(var j=0;j<data[i].stickers.length;j++){total++;var st=data[i].stickers[j].status;if(st==='have')have++;else if(st==='dup')dup++;else need++;}}
- byId('stats').innerHTML='<div class="stat"><span class="muted">Total</span><b>'+total+'</b></div><div class="stat"><span class="muted">Have</span><b>'+have+'</b></div><div class="stat"><span class="muted">Need</span><b>'+need+'</b></div><div class="stat"><span class="muted">Dupes</span><b>'+dup+'</b></div>';
- var html='';
- for(var ti=0;ti<data.length;ti++){var t=data[ti];var visible=[];var collected=0;for(var si=0;si<t.stickers.length;si++){var s=t.stickers[si];if(s.status==='have'||s.status==='dup')collected++;var hay=(t.name+' '+t.code+' '+num(t,s)+' '+s.name).toLowerCase();if((!q||hay.indexOf(q)>-1)&&(f==='all'||s.status===f)){visible.push(s)}}if(!visible.length)continue;var pct=Math.round((collected/t.stickers.length)*100);
- html+='<div class="team"><div class="teamHead"><div class="teamTitle">'+escapeHtml(t.name)+' <span class="muted">'+escapeHtml(t.code)+' • Page '+(escapeHtml(t.page)||'add')+'</span></div><div class="muted">'+collected+'/'+t.stickers.length+' collected • '+pct+'%</div><div class="bar"><div class="fill" style="width:'+pct+'%"></div></div><div class="editTeam"><input value="'+escapeHtml(t.name)+'" data-kind="team" data-ti="'+ti+'" data-field="name"><input value="'+escapeHtml(t.code)+'" data-kind="team" data-ti="'+ti+'" data-field="code"><input placeholder="Page" value="'+escapeHtml(t.page)+'" data-kind="team" data-ti="'+ti+'" data-field="page"></div><p><button data-action="addSticker" data-ti="'+ti+'" class="secondary">+ Add sticker</button></p></div><div class="stickers">';
- for(var vi=0;vi<visible.length;vi++){s=visible[vi];html+='<div class="sticker '+s.status+'"><div class="num">'+escapeHtml(num(t,s))+'</div><input class="nameInput" value="'+escapeHtml(s.name)+'" data-kind="sticker" data-ti="'+ti+'" data-n="'+s.number+'"><div class="statusGrid"><button data-action="status" data-ti="'+ti+'" data-n="'+s.number+'" data-status="need" class="'+(s.status==='need'?'active need':'')+'">Need</button><button data-action="status" data-ti="'+ti+'" data-n="'+s.number+'" data-status="have" class="'+(s.status==='have'?'active have':'')+'">Have</button><button data-action="status" data-ti="'+ti+'" data-n="'+s.number+'" data-status="dup" class="'+(s.status==='dup'?'active dup':'')+'">Dupe</button></div></div>'}
- html+='</div></div>'}
- byId('teams').innerHTML=html||'<div class="panel">No matches.</div>';
-}
-function doButton(el){var a=el.getAttribute('data-action');if(!a)return;var ti=parseInt(el.getAttribute('data-ti'),10);if(a==='status'){var n=parseInt(el.getAttribute('data-n'),10);var st=el.getAttribute('data-status');for(var i=0;i<data[ti].stickers.length;i++){if(data[ti].stickers[i].number===n){data[ti].stickers[i].status=st;break}}save();render()}else if(a==='addSticker'){var t=data[ti];t.stickers.push({number:t.stickers.length+1,name:'New sticker',status:'need'});save();render()}}
-function handleTap(e){var el=e.target;while(el&&el.tagName!=='BUTTON'){el=el.parentNode}if(el&&el.getAttribute('data-action')){e.preventDefault();doButton(el)}}
-document.addEventListener('click',handleTap,false);
-document.addEventListener('touchend',function(e){var el=e.target;while(el&&el.tagName!=='BUTTON'){el=el.parentNode}if(el&&el.getAttribute('data-action')){e.preventDefault();doButton(el)}},false);
-document.addEventListener('change',function(e){var el=e.target;if(!el.getAttribute)return;var kind=el.getAttribute('data-kind');if(kind==='team'){var ti=parseInt(el.getAttribute('data-ti'),10), field=el.getAttribute('data-field');data[ti][field]=(field==='code'?el.value.toUpperCase():el.value);save();render()}else if(kind==='sticker'){var ti2=parseInt(el.getAttribute('data-ti'),10), n=parseInt(el.getAttribute('data-n'),10);for(var i=0;i<data[ti2].stickers.length;i++){if(data[ti2].stickers[i].number===n){data[ti2].stickers[i].name=el.value;break}}save()}},false);
-byId('search').oninput=render;byId('filter').onchange=render;byId('addTeam').onclick=function(){data.push({code:'NEW',name:'New section',page:'',stickers:makeData([{code:'X',name:'x',stickers:['Emblem','Sticker 2','Sticker 3','Sticker 4','Sticker 5','Sticker 6','Sticker 7','Sticker 8','Sticker 9','Sticker 10','Sticker 11','Sticker 12','Team Photo','Sticker 14','Sticker 15','Sticker 16','Sticker 17','Sticker 18','Sticker 19','Sticker 20']}])[0].stickers});save();render()};
-byId('importBtn').onclick=function(){byId('importPanel').className=byId('importPanel').className.indexOf('hidden')>-1?'panel':'panel hidden'};byId('closeImport').onclick=function(){byId('importPanel').className='panel hidden'};
-byId('loadCsv').onclick=function(){var txt=byId('csvInput').value.replace(/\r/g,'').split('\n');var map={};for(var i=0;i<txt.length;i++){if(!txt[i])continue;var p=txt[i].split(',');if(p.length<5||p[0].toLowerCase()==='code')continue;var code=p[0].trim().toUpperCase();if(!map[code])map[code]={code:code,name:p[1].trim(),page:p[2].trim(),stickers:[]};map[code].stickers.push({number:parseInt(p[3],10),name:p[4].trim(),status:(p[5]||'need').trim()||'need'})}data=[];for(var k in map){map[k].stickers.sort(function(a,b){return a.number-b.number});data.push(map[k])}save();render()};
-byId('exportBtn').onclick=function(){var rows=['code,team,page,number,name,status'];for(var i=0;i<data.length;i++){var t=data[i];for(var j=0;j<t.stickers.length;j++){var s=t.stickers[j];rows.push([t.code,t.name,t.page,s.number,s.name,s.status].map(function(v){return '"'+String(v).replace(/"/g,'""')+'"'}).join(','))}}var blob=new Blob([rows.join('\n')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='panini-2026-tracker.csv';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a)},100)};
-byId('resetBtn').onclick=function(){if(confirm('Reset tracker?')){localStorage.removeItem(key);data=makeData(starter);save();render()}};
-render();
-})();
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('./service-worker.js').catch(function () {});
-  });
-}
-</script>
+  <h1>Panini World Cup 2026 Tracker</h1>
+  <div id="teamsContainer"></div>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Register the service worker for offline use
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
 </body>
 </html>

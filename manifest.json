@@ -1,14 +1,20 @@
 {
   "name": "Panini World Cup 2026 Tracker",
   "short_name": "Panini 2026",
-  "description": "Track collected, missing and duplicate Panini World Cup 2026 stickers by team.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#f5f7fb",
-  "theme_color": "#2563eb",
+  "background_color": "#0a61e8",
+  "theme_color": "#0a61e8",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
