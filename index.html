@@ -53,6 +53,41 @@
       width: 100%;
       padding: 0.2rem;
     }
+    /* Controls at the top for filtering and exporting */
+    #controls {
+      padding: 0.5rem 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    #controls label {
+      font-weight: bold;
+    }
+
+    #controls select, #controls button {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    /* Full team section styling */
+    .team-section {
+      margin: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .team-header {
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      background-color: #f0f7ff;
+      border-bottom: 1px solid #ddd;
+    }
     details[open] summary::after {
       content: '\2013'; /* dash */
     }
@@ -64,6 +99,15 @@
 </head>
 <body>
   <h1>Panini World Cup 2026 Tracker</h1>
+  <!-- Controls for filtering and exporting -->
+  <div id="controls">
+    <label for="filterSelect">Show:</label>
+    <select id="filterSelect">
+      <option value="all">All Stickers</option>
+      <option value="need">Missing Only</option>
+    </select>
+    <button id="exportBtn" type="button">Export Missing</button>
+  </div>
   <div id="teamsContainer"></div>
   <script src="data.js"></script>
   <script src="script.js"></script>
