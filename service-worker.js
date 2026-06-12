@@ -6,7 +6,7 @@ const CACHE_NAME = 'panini-2026-cache-v1';
 const ASSETS = [
   '.',
   'index.html',
-  'script.js',
+  'grid.js',
   'data.js',
   'manifest.json',
   'icons/icon-192.png',
